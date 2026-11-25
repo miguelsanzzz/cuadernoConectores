@@ -1,8 +1,7 @@
-package main.java.com.example.dao;
+package com.academia.dao;
 
-
-import com.example.database.ConexionBD;
-import com.example.model.Alumno;
+import com.academia.database.ConexionBD;
+import com.academia.model.Alumno;
 
 import java.sql.Connection;
 import java.sql.Date;

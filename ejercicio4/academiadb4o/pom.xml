@@ -12,5 +12,12 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+    
+    <dependency>
+        <groupId>com.db4o</groupId>
+        <artifactId>db4o-all</artifactId>
+        <version>8.0.249</version>
+    </dependency>
+
 
 </project>

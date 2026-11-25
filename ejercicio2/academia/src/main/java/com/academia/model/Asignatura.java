@@ -1,4 +1,4 @@
-package main.java.com.example.model;
+package com.academia.model;
 
 
 public class Asignatura {

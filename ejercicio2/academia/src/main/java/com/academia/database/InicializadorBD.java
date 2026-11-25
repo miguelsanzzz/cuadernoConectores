@@ -1,4 +1,4 @@
-package com.example;
+package com.academia.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
