@@ -17,10 +17,10 @@
     </properties>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.db4o</groupId>
             <artifactId>db4o-all</artifactId>
             <version>8.1.184.160</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 </project>
