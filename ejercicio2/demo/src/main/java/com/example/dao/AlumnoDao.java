@@ -1,40 +1,45 @@
 package main.java.com.example.dao;
 
 
-import com.academia.database.ConexionBD;
-import com.academia.model.Asignatura;
+import com.example.database.ConexionBD;
+import com.example.model.Alumno;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AsignaturaDao implements IDao<Asignatura, Integer> {
+public class AlumnoDao implements IDao<Alumno, Integer> {
     private final Connection connection = ConexionBD.getInstance().getConnection();
 
-    private static final String INSERT = "INSERT INTO asignatura(codigo, nombre, horas_semana, id_profesor, id_curso) VALUES (?,?,?,?,?)";
-    private static final String SELECT = "SELECT * FROM asignatura WHERE id=?";
-    private static final String SELECT_ALL = "SELECT * FROM asignatura";
-    private static final String UPDATE = "UPDATE asignatura SET codigo=?, nombre=?, horas_semana=?, id_profesor=?, id_curso=? WHERE id=?";
-    private static final String DELETE = "DELETE FROM asignatura WHERE id=?";
+    private static final String INSERT = "INSERT INTO alumno(dni, nombre, apellidos, direccion, fecha_nacimiento, codigo_postal, telefono) VALUES (?,?,?,?,?,?,?)";
+    private static final String SELECT = "SELECT * FROM alumno WHERE id=?";
+    private static final String SELECT_ALL = "SELECT * FROM alumno";
+    private static final String UPDATE = "UPDATE alumno SET dni=?, nombre=?, apellidos=?, direccion=?, fecha_nacimiento=?, codigo_postal=?, telefono=? WHERE id=?";
+    private static final String DELETE = "DELETE FROM alumno WHERE id=?";
 
-    private void rellenar(PreparedStatement ps, Asignatura a) throws SQLException {
-        ps.setString(1, a.getCodigo());
+    private void rellenar(PreparedStatement ps, Alumno a) throws SQLException {
+        ps.setString(1, a.getDni());
         ps.setString(2, a.getNombre());
-        ps.setInt(3, a.getHorasSemana());
-        ps.setInt(4, a.getIdProfesor());
-        ps.setInt(5, a.getIdCurso());
+        ps.setString(3, a.getApellidos());
+        ps.setString(4, a.getDireccion());
+        ps.setDate(5, Date.valueOf(a.getFechaNacimiento()));
+        ps.setString(6, a.getCodigoPostal());
+        ps.setString(7, a.getTelefono());
     }
 
-    private Asignatura mapear(ResultSet rs) throws SQLException {
-        return new Asignatura(rs.getInt("id"), rs.getString("codigo"), rs.getString("nombre"),
-                rs.getInt("horas_semana"), rs.getInt("id_profesor"), rs.getInt("id_curso"));
+    private Alumno mapear(ResultSet rs) throws SQLException {
+        return new Alumno(rs.getInt("id"), rs.getString("dni"), rs.getString("nombre"),
+                rs.getString("apellidos"), rs.getString("direccion"),
+                rs.getDate("fecha_nacimiento").toLocalDate(),
+                rs.getString("codigo_postal"), rs.getString("telefono"));
     }
 
     @Override
-    public boolean createRecord(Asignatura a) {
+    public boolean createRecord(Alumno a) {
         try (PreparedStatement ps = connection.prepareStatement(INSERT)) {
             rellenar(ps, a);
             return ps.executeUpdate() > 0;
@@ -45,7 +50,7 @@ public class AsignaturaDao implements IDao<Asignatura, Integer> {
     }
 
     @Override
-    public Asignatura readRecord(Integer id) {
+    public Alumno readRecord(Integer id) {
         try (PreparedStatement ps = connection.prepareStatement(SELECT)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -58,10 +63,10 @@ public class AsignaturaDao implements IDao<Asignatura, Integer> {
     }
 
     @Override
-    public boolean updateRecord(Asignatura a, Integer id) {
+    public boolean updateRecord(Alumno a, Integer id) {
         try (PreparedStatement ps = connection.prepareStatement(UPDATE)) {
             rellenar(ps, a);
-            ps.setInt(6, id);
+            ps.setInt(8, id);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             System.out.println("Error al actualizar: " + e.getMessage());
@@ -81,8 +86,8 @@ public class AsignaturaDao implements IDao<Asignatura, Integer> {
     }
 
     @Override
-    public List<Asignatura> readRecords() {
-        List<Asignatura> lista = new ArrayList<>();
+    public List<Alumno> readRecords() {
+        List<Alumno> lista = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(SELECT_ALL);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) lista.add(mapear(rs));

@@ -13,9 +13,9 @@ public final class ConexionBD {
     private ConexionBD() {
         String url, user, pass;
         switch (BBDD) {
-            case "DERBY":  url = "jdbc:derby:academiaDerby;create=true"; user = ""; pass = ""; break;
-            case "HSQLDB": url = "jdbc:hsqldb:file:./academiaHSQL"; user = "SA"; pass = ""; break;
-            default:       url = "jdbc:h2:./academiaH2"; user = "sa"; pass = "";
+            case "DERBY":  url = "jdbc:derby:exampleDerby;create=true"; user = ""; pass = ""; break;
+            case "HSQLDB": url = "jdbc:hsqldb:file:./exampleHSQL"; user = "SA"; pass = ""; break;
+            default:       url = "jdbc:h2:./exampleH2"; user = "sa"; pass = "";
         }
         try {
             connection = user.isEmpty() ? DriverManager.getConnection(url)

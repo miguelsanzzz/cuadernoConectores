@@ -1,9 +1,9 @@
 package com.example;
 
-import com.academia.dao.*;
-import com.academia.database.ConexionBD;
-import com.academia.database.InicializadorBD;
-import com.academia.model.*;
+import com.example.dao.*;
+import com.example.database.ConexionBD;
+import com.example.database.InicializadorBD;
+import com.example.model.*;
 
 import java.time.LocalDate;
 

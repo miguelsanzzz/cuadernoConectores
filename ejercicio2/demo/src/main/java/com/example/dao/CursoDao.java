@@ -1,7 +1,7 @@
 package main.java.com.example.dao;
 
 
-import com.academia.database.ConexionBD;
+import com.example.database.ConexionBD;
 import com.academia.model.Curso;
 
 import java.sql.Connection;
